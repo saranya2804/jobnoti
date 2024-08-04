@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload File</title>
+</head>
+<body>
+<h1>Upload File</h1>
+<form method="post" th:action="@{/application/upload}" enctype="multipart/form-data">
+    <input type="file" name="resume" />
+    <input type="hidden" name="userId" value="1" /> <!-- Replace 1 with the actual user ID -->
+    <button type="submit">Upload</button>
+</form>
+</body>
+</html>
