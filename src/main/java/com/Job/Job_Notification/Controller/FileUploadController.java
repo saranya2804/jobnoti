@@ -3,6 +3,7 @@ package com.Job.Job_Notification.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +25,10 @@ public class FileUploadController {
         try {
             String message = applicationService.uploadResume(file, userId);
             return ResponseEntity.ok(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Failed to upload '" + file.getOriginalFilename() + "'");
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body("Error uploading file: " + e.getMessage());
         }
     }
+
 }

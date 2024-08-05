@@ -1,5 +1,6 @@
 package com.Job.Job_Notification.Controller;
 
+import Exceptions.JobNotFoundException;
 import com.Job.Job_Notification.Entity.Job;
 
 import com.Job.Job_Notification.Service.JobService;
@@ -19,10 +20,11 @@ public class JobController {
         return service.createJob(job);
     }
     @GetMapping("/{id}")
-    public Optional<Job> getJobById(@PathVariable Integer id) {
-        return service.getJobById(id);
 
+        public Optional<Job> getJobById (@PathVariable Integer  id){
+        return service.getJobById(id);
     }
+
     @PutMapping("update/{id}/jobtitle")
     public String updateJob(@PathVariable Integer id,@RequestParam String jobTitle) {
         return service.updateJobTitle(id,jobTitle);

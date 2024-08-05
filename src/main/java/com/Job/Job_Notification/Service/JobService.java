@@ -1,5 +1,6 @@
 package com.Job.Job_Notification.Service;
 
+import Exceptions.JobNotFoundException;
 import com.Job.Job_Notification.Entity.Job;
 import com.Job.Job_Notification.Repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,20 @@ public class JobService {
     }
 
     public Optional<Job> getJobById(Integer id) {
-        return repository.findById(id);
+        Optional<Job> job = repository.findById(id);
+        if (job.isPresent()) {
+            return job;
+        } else {
+            throw new JobNotFoundException("Job not found with id: " + id);
+        }
     }
 
     public void deleteJob(Integer id) {
-        repository.deleteById(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        } else {
+            throw new JobNotFoundException("Job not found with id: " + id);
+        }
     }
 
     public Iterable<Job> getAllJobs() {
@@ -57,7 +67,7 @@ public class JobService {
             repository.save(updatedJob);
             return "Job title updated successfully.";
         } else {
-            return "Job not found.";
+            throw new JobNotFoundException("Job not found with id: " + id);
         }
     }
 
@@ -69,7 +79,7 @@ public class JobService {
             repository.save(updatedJob);
             return "Job description updated successfully.";
         } else {
-            return "Job not found.";
+            throw new JobNotFoundException("Job not found with id: " + id);
         }
     }
 
@@ -81,7 +91,7 @@ public class JobService {
             repository.save(updatedJob);
             return "Job requirements updated successfully.";
         } else {
-            return "Job not found.";
+            throw new JobNotFoundException("Job not found with id: " + id);
         }
     }
 
@@ -93,7 +103,7 @@ public class JobService {
             repository.save(updatedJob);
             return "Job category updated successfully.";
         } else {
-            return "Job not found.";
+            throw new JobNotFoundException("Job not found with id: " + id);
         }
     }
 
@@ -105,7 +115,7 @@ public class JobService {
             repository.save(updatedJob);
             return "Job location updated successfully.";
         } else {
-            return "Job not found.";
+            throw new JobNotFoundException("Job not found with id: " + id);
         }
     }
 }
